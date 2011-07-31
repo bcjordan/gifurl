@@ -13,8 +13,6 @@ gem 'sqlite3'
 
 gem 'nifty-generators'
 
-gem 'open-uri'
-
 gem 'acts-as-taggable-on'
 
 # Use unicorn as the web server
