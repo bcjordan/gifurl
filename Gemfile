@@ -11,6 +11,8 @@ gem 'shoulda'
 
 gem 'sqlite3'
 
+gem 'json'
+
 gem 'nifty-generators'
 
 gem 'acts-as-taggable-on'

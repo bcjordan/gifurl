@@ -12,9 +12,9 @@ class GifsController < ApplicationController
       @gif = Gif.tagged_with(params[:tag]).first
     end
 
-    #redirect_to @gif.url, :status=>302
-    file = open("#{@gif.url}")
-    send_data file.read, :filename => @gif.id, :type=>'image/gif', :disposition => 'inline'
+    redirect_to @gif.url, :status=>302
+    #file = open("#{@gif.url}")
+    #send_data file.read, :filename => @gif.id, :type=>'image/gif', :disposition => 'inline'
   end
 
   def new
