@@ -1,0 +1,21 @@
+<% title "Gifs" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Url</th>
+    <th>Nsfw</th>
+  </tr>
+  <% for gif in @gifs %>
+    <tr>
+      <td><%= gif.name %></td>
+      <td><%= gif.url %></td>
+      <td><%= gif.nsfw %></td>
+      <td><%= link_to "Show", gif %></td>
+      <td><%= link_to "Edit", edit_gif_path(gif) %></td>
+      <td><%= link_to "Destroy", gif, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Gif", new_gif_path %></p>

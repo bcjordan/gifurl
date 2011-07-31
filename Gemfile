@@ -7,6 +7,15 @@ gem 'rails', '3.0.7'
 
 gem 'sqlite3'
 
+gem 'nifty-generators'
+
+gem 'shoulda'
+
+
+gem 'acts-as-taggable-on'
+
+gem 'nifty-generators'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
