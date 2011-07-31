@@ -6,7 +6,11 @@ class GifsController < ApplicationController
   end
 
   def show
-    @gif = Gif.find(params[:id])
+    if params[:id]
+      @gif = Gif.find(params[:id])
+    elsif params[:tag]
+      @gif = Gif.tagged_with(params[:tag]).first
+    end
 
     #redirect_to @gif.url, :status=>302
     file = open("#{@gif.url}")
@@ -29,10 +33,12 @@ class GifsController < ApplicationController
 
   def edit
     @gif = Gif.find(params[:id])
+
   end
 
   def update
     @gif = Gif.find(params[:id])
+    @gif.tag_list.add params[:gif][:tags]
     if @gif.update_attributes(params[:gif])
       redirect_to @gif, :notice  => "Successfully updated gif."
     else
