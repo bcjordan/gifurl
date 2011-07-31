@@ -3,5 +3,5 @@
 
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
-#include Rake::DSL
+require 'rake/dsl_definition'
 AllgifsCom::Application.load_tasks
