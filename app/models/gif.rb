@@ -26,9 +26,10 @@ class Gif < ActiveRecord::Base
 
     # To handle uploads:
     # 'image' => Base64.encode64(open(url).read),
-    
+    puts res.body
     self.url = JSON.parse(res.body)['upload']['links']['original']
 
     puts self.url
+    puts JSON.parse(res.body)['upload']['image']['hash']
   end
 end
