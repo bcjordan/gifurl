@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class GifsController < ApplicationController
   def index
     @gifs = Gif.all
@@ -6,7 +8,9 @@ class GifsController < ApplicationController
   def show
     @gif = Gif.find(params[:id])
 
-    redirect_to @gif.url, :status=>302
+    #redirect_to @gif.url, :status=>302
+    file = open("#{@gif.url}")
+    send_data file.read, :filename => @gif.id, :type=>'image/gif', :disposition => 'inline'
   end
 
   def new
