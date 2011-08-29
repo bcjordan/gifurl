@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
+
+gifs = Gif.create([
+  { :name => "Michael Jackson eating popcorn", :url => 'http://imgur.com/tCp90.gif' }])
+
+gifs.first.tag_list.add 'popcorn', 'entertained', 'michael jackson', 'jackson'
+gifs.first.save!

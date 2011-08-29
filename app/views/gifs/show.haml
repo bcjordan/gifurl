@@ -1,0 +1,29 @@
+-title "Gif of #{@gif.name}"
+
+#right= image_tag @gif.url
+
+%p
+  %strong Name:
+  = @gif.name
+
+%p
+  %strong Url:
+  = @gif.url
+
+- if @gif.nsfw
+  %p
+    %strong Nsfw:
+    = @gif.nsfw
+- else
+  SFW
+
+%p
+  %b Tagged with:
+  - @gif.tags.each do |tag|
+    %span= tag
+
+
+%p
+  = link_to "Edit", edit_gif_path(@gif)
+  = link_to "Destroy", @gif, :confirm => 'Are you sure?', :method => :delete
+  = link_to "View All", gifs_path

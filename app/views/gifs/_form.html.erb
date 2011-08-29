@@ -10,7 +10,7 @@
   </p>
   <p>
     <%= f.label :tags %><br />
-    <%= f.text_field :tags %>
+    <%= f.text_field :tags, :value => @gif.tags.join(", ") %>
   </p>
   <p>
     <%= f.label :nsfw %><br />
