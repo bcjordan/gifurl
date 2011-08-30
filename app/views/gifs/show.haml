@@ -1,13 +1,13 @@
 -title "Gif of #{@gif.name}"
 
-#right= image_tag @gif.url
+#right= image_tag 'http://0.0.0.0:3000/spongebob.1.gif' # @gif.url
 
 %p
   %strong Name:
   = @gif.name
 
 %p
-  %strong Url:
+  %strong URL:
   = @gif.url
 
 - if @gif.nsfw
@@ -24,6 +24,4 @@
 
 
 %p
-  = link_to "Edit", edit_gif_path(@gif)
-  = link_to "Destroy", @gif, :confirm => 'Are you sure?', :method => :delete
-  = link_to "View All", gifs_path
+  = link_to "Back to all gifs", gifs_path

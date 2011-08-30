@@ -17,16 +17,25 @@ class GifsController < ApplicationController
   end
 
   def jump
-    if params[:id]
-      @gif = Gif.find(params[:id])
+    if params[:tag].is_numeric?
+      @gif = Gif.all[(params[:tag].to_i)]
     elsif params[:tag]
       tags = params[:tag].split '+'
-      pp tags
-      @gif = Gif.tagged_with(tags).first
+      offset = params[:offset] ? params[:offset].to_i : 1
+      
+      offset = offset - 1 # Move from 1 bottom to 0 bottom
+
+      matching_gifs = Gif.tagged_with(tags)
+
+      if matching_gifs.size <= offset
+        offset = matching_gifs.size - 1
+      end
+      @gif = matching_gifs[offset]
     end
 
     pp "test" + request.referer
 
+    request.env[:HTTP_REFERER]
     redirect_to @gif.url, :status => 301
     #file = open("#{@gif.url}")
     #send_data file.read, :filename => @gif.id, :type=>'image/gif', :disposition => 'inline'
@@ -83,5 +92,14 @@ class GifsController < ApplicationController
     @gif = Gif.find(params[:id])
     @gif.destroy
     redirect_to gifs_url, :notice => "Successfully destroyed gif."
+  end
+end
+
+class String
+  def is_numeric?
+    Float(self)
+    true
+  rescue
+    false
   end
 end

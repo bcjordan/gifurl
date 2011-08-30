@@ -4,3 +4,14 @@
 .css4 { font-size: 1.6em; }
 
 #right { float: right }
+#gifstrip {  }
+
+#gifstrip img { width: 100px; height: 100px }
+
+a { text-decoration: none; color: #3b5998 }
+a:hover { text-decoration: underline }
+
+/* Facebook body { font-family: "lucida grande", tahoma, verdana, arial, sans-serif }*/
+/* StackOverflow body { font-family: Arial,Liberation Sans,DejaVu Sans,sans-serif }*/
+/* Reddit */
+body { font-family: normal x-small verdana, arial, helvetica, sans-serif}

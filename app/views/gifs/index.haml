@@ -1,5 +1,10 @@
 - title "Gifs"
 
+#gifstrip
+  -for gif in @gifs
+    = image_tag gif.url
+
+
 %table
   %tr
     %th Name
@@ -15,4 +20,5 @@
       %td= link_to "Edit", edit_gif_path(gif)
       %td= link_to "Destroy", gif, :confirm => 'Are you sure?', :method => :delete
 
-%p= link_to "New Gif", new_gif_path
+%p
+  %b= link_to "New Gif", new_gif_path

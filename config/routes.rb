@@ -3,6 +3,7 @@ AllgifsCom::Application.routes.draw do
 
 #  match ':id.gif' => 'gifs#show'
   match ':tag.gif' => 'gifs#jump'
+  match ':tag.:offset.gif' => 'gifs#jump'
 
   root :to => 'gifs#front'
 
