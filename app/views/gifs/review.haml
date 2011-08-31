@@ -1,0 +1,39 @@
+%h1 GIF Importer - Scrape review
+
+%h3 Parameters:
+
+%table
+  %tr
+    %td
+      %b URL
+    %td= link_to params[:import][:url], params[:import][:url]
+  %tr
+    %td
+      %b Default tags
+    %td= params[:import][:tags]
+  %tr
+    %td
+      %b NSFW
+    %td= params[:import][:nsfw]
+
+%h3= "Review #{@gifs.size} items:"
+
+= form_tag :action => :update_batch
+%table
+  %tr
+    %th Get?
+  - @gifs.each_with_index do |gif, i|
+    = fields_for "gifs[#{i}]", gif do |pf|
+      %tr
+        %td= pf.check_box :include, :checked => true
+        %td
+          = link_to_function image_tag(gif.url), "$('gifs_#{i}_include').checked = !$('gifs_#{i}_include').checked;"
+          %br
+          = pf.hidden_field :url
+          = pf.label :name
+          = pf.text_field :name
+          %br
+          = pf.label :tags
+          = pf.text_field :tags, :value => params[:import][:tags] # gif.tags.join(', ')
+  %tr
+    %td= submit_tag "Update gifs"

@@ -1,0 +1,19 @@
+= form_for @gif do |f|
+  = f.error_messages
+  %p
+    = f.label :name
+    %br
+    = f.text_field :name
+  %p
+    = f.label :url
+    %br
+    = f.text_field :url
+  %p
+    = f.label :tags
+    %br
+    = f.text_field :tags, :value => @gif.tags.join(", ")
+  %p
+    = f.label :nsfw
+    = f.check_box :nsfw
+    
+  %p= f.submit

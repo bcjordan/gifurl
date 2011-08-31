@@ -1,15 +1,16 @@
+#require 'rubygems'
 require 'open-uri'
 require 'pp'
+require 'nokogiri'
 
 class GifsController < ApplicationController
   def front
     @gifs = Gif.all
-    
-    @tags = Gif.tag_counts
   end
 
   def index
-    @gifs = Gif.all
+    @tags = Gif.tag_counts
+    @gifs = Gif.all if !@gifs || @gifs.empty?
   end
 
   def tag_cloud
@@ -22,7 +23,7 @@ class GifsController < ApplicationController
     elsif params[:tag]
       tags = params[:tag].split '+'
       offset = params[:offset] ? params[:offset].to_i : 1
-      
+
       offset = offset - 1 # Move from 1 bottom to 0 bottom
 
       matching_gifs = Gif.tagged_with(tags)
@@ -50,8 +51,6 @@ class GifsController < ApplicationController
       @gif = Gif.tagged_with(tags).first
     end
 
-    pp "test" + request.referer
-
     #redirect_to @gif.url, :status => 301
     #file = open("#{@gif.url}")
     #send_data file.read, :filename => @gif.id, :type=>'image/gif', :disposition => 'inline'
@@ -63,7 +62,6 @@ class GifsController < ApplicationController
 
   def create
     @gif = Gif.new(params[:gif])
-    pp "Tags are" + params[:gif][:tags]
     @gif.tag_list = params[:gif][:tags]
     if @gif.save
       redirect_to @gif, :notice => "Successfully created gif."
@@ -74,7 +72,59 @@ class GifsController < ApplicationController
 
   def edit
     @gif = Gif.find(params[:id])
+  end
 
+  def import
+    
+  end
+
+  def review
+    @gifs = []
+    urls = {}
+
+    ## Grab HTML from URL
+    begin
+      urls = {}
+      ## TODO: add range handling and multi-URL parsing
+      doc = Nokogiri::HTML(open(params[:import][:url]))
+      doc.css('a').each do |image|
+        if image['src'] && image['src'].include?('.gif') && !image['src'].include?('pixel')
+          urls[image['src']] = true
+        elsif image['href'] && image['href'] && image['href'].include?('.gif')
+          urls[image['href']] = true
+        end
+      end
+
+      urls.each do |url, value|
+        @gifs << Gif.create(:url => url, :source => params[:import][:url])
+      end
+    rescue Exception => e
+      flash.now[:error] = "The URL <a href='#{params[:import][:url]}'>#{params[:import][:url]}</a> could not be accessed or parsed.".html_safe
+      puts e
+      render :action => 'import'
+    end
+
+    #session[:gifs] = @gifs
+  end
+
+  def update_batch
+    params[:gifs]
+    #@gifs = session[:gifs]
+    @gifs = []
+
+    params[:gifs].each do |key, gif|
+      if gif['include'] == '1'
+        new_gif = Gif.find_or_create_by_url(gif[:url])
+        new_gif.update_attributes(gif)
+        new_gif.tag_list = gif[:tags]
+        
+        @gifs << new_gif if new_gif.save
+      else
+        Gif.find_by_url(gif[:url]).destroy
+      end
+    end
+
+    redirect_to :action => 'index', :notice => "Successfully created these #{@gifs.size} gifs"
   end
 
   def update
@@ -82,7 +132,7 @@ class GifsController < ApplicationController
     pp "Tags are" + params[:gif][:tags]
     @gif.tag_list = params[:gif][:tags]
     if @gif.update_attributes(params[:gif])
-      redirect_to @gif, :notice  => "Successfully updated gif."
+      redirect_to @gif, :notice => "Successfully updated gif."
     else
       render :action => 'edit'
     end
@@ -101,5 +151,20 @@ class String
     true
   rescue
     false
+  end
+
+  def to_range
+    case self.count('.')
+      when 1
+        return Range.new(self.to_i, self.to_i)
+      when 2
+        elements = self.split('..')
+        return Range.new(elements[0].to_i, elements[1].to_i)
+      when 3
+        elements = self.split('...')
+        return Range.new(elements[0].to_i, elements[1].to_i-1)
+      else
+        raise ArgumentError.new("Couldn't convert to Range: #{str}")
+    end
   end
 end

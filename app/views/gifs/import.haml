@@ -1,0 +1,20 @@
+%h1 GIF Importer
+
+= form_for :import, :url => url_for(:controller => "gifs", :action => "review") do |f|
+  = f.error_messages
+  %p
+    = f.label :url, "URL to search"
+    %br
+    = f.text_field :url
+  %p
+    = f.label :tags, "Default tags"
+    %br
+    = f.text_field :tags
+  %p
+    = f.label :nsfw, "Default NSFW"
+    = f.check_box :nsfw
+  -#%p
+  -#  = f.label :range, "Range e.g., (0..5)"
+  -#  %br
+  -#  = f.text_field :range
+  %p= f.submit "Find GIFS"

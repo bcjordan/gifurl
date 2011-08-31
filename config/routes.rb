@@ -1,11 +1,15 @@
 AllgifsCom::Application.routes.draw do
-  resources :gifs
 
 #  match ':id.gif' => 'gifs#show'
   match ':tag.gif' => 'gifs#jump'
   match ':tag.:offset.gif' => 'gifs#jump'
 
-  root :to => 'gifs#front'
+  match 'gifs/import' => 'gifs#import'
+  match 'gifs/review' => 'gifs#review'
+  match 'gifs/update_batch' => 'gifs#update_batch'
+
+  resources :gifs
+  root :to => 'gifs#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110731051710) do
+ActiveRecord::Schema.define(:version => 20110831202100) do
 
   create_table "gifs", :force => true do |t|
     t.string   "name"
@@ -18,6 +18,8 @@ ActiveRecord::Schema.define(:version => 20110731051710) do
     t.boolean  "nsfw"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "source"
+    t.string   "original_url"
   end
 
   create_table "taggings", :force => true do |t|

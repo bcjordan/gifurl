@@ -4,14 +4,20 @@ require 'net/http'
 class Gif < ActiveRecord::Base
   acts_as_taggable
 
-  attr_accessible :name, :url, :nsfw
+  attr_accessible :name, :url, :nsfw, :source, :original_url
 
   validates_presence_of :url
+
+  validates_uniqueness_of :url, :original_url
 
   before_save :ensure_hosted_on_imgur
 
   private
+  #http://www.imageshack.us/upload_api.php?key=57CHKLNO23f5772890d33fccf87b99c997caf3bc&url=http://30.media.tumblr.com/tumblr_l5seo7bH9R1qci224o1_250.gif
+  
   def ensure_hosted_on_imgur
+    self.original_url = self.url
+    
     if !url.include? "imgur"
       host_on_imgur
     end

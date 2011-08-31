@@ -10,6 +10,8 @@ gem 'haml'
 
 gem 'haml-rails'
 
+gem 'nokogiri'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

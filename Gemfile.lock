@@ -41,7 +41,7 @@ GEM
       haml (~> 3.0)
       railties (~> 3.0)
     i18n (0.5.0)
-    json (1.5.3)
+    json (1.5.4)
     mail (2.2.19)
       activesupport (>= 2.3.6)
       i18n (>= 0.4.0)
@@ -49,6 +49,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.16)
     nifty-generators (0.4.6)
+    nokogiri (1.5.0)
     polyglot (0.3.2)
     rack (1.2.3)
     rack-mount (0.6.14)
@@ -86,6 +87,7 @@ DEPENDENCIES
   haml-rails
   json
   nifty-generators
+  nokogiri
   rails (= 3.0.7)
   shoulda
   sqlite3
