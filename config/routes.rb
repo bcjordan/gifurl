@@ -7,6 +7,7 @@ AllgifsCom::Application.routes.draw do
   match 'gifs/import' => 'gifs#import'
   match 'gifs/review' => 'gifs#review'
   match 'gifs/update_batch' => 'gifs#update_batch'
+  match 'gifs/batch_edit' => 'gifs#batch_edit'
 
   resources :gifs
   root :to => 'gifs#index'

@@ -1,0 +1,36 @@
+%h1 GIF batch editor
+%h3 Select an epic batch editing maneuver:
+= form_for :batch_edit, :url => url_for(:controller => "gifs", :action => "batch_edit") do |f|
+  = f.error_messages
+  %ul
+    %li
+      = f.label :range
+      = f.text_field :range
+    %li
+      = f.label :name
+      = f.text_field :name
+    %li
+      = f.label :tag_list
+      = f.text_field :tag_list
+  %p= f.submit "Update filter"
+
+- if params[:batch_edit]
+  %h3 Current parameters:
+
+  %table
+    - if params[:batch_edit][:range]
+      %tr
+        %th Range
+        %td= params[:batch_edit][:range]
+    - if params[:batch_edit][:name]
+      %tr
+        %th Name
+        %td= params[:batch_edit][:name]
+    - if params[:batch_edit][:tag_list]
+      %tr
+        %th Tag list
+        %td= params[:batch_edit][:tag_list]
+
+  %h3= "Batch edit #{@gifs.size} items:"
+
+  = render 'form'

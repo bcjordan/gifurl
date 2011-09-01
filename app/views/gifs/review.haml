@@ -18,22 +18,4 @@
 
 %h3= "Review #{@gifs.size} items:"
 
-= form_tag :action => :update_batch
-%table
-  %tr
-    %th Get?
-  - @gifs.each_with_index do |gif, i|
-    = fields_for "gifs[#{i}]", gif do |pf|
-      %tr
-        %td= pf.check_box :include, :checked => true
-        %td
-          = link_to_function image_tag(gif.url), "$('gifs_#{i}_include').checked = !$('gifs_#{i}_include').checked;"
-          %br
-          = pf.hidden_field :url
-          = pf.label :name
-          = pf.text_field :name
-          %br
-          = pf.label :tags
-          = pf.text_field :tags, :value => params[:import][:tags] # gif.tags.join(', ')
-  %tr
-    %td= submit_tag "Update gifs"
+= render 'form'

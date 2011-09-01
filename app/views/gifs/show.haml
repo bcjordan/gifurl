@@ -19,8 +19,9 @@
 
 %p
   %b Tagged with:
-  - @gif.tags.each do |tag|
-    %span= tag
+  = @gif.tag_list
+  -#- @gif.tags.each do |tag|
+  -#  %span= tag
 
 
 %p

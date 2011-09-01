@@ -4,20 +4,34 @@ require 'net/http'
 class Gif < ActiveRecord::Base
   acts_as_taggable
 
-  attr_accessible :name, :url, :nsfw, :source, :original_url
+  attr_accessible :name, :url, :nsfw, :source, :original_url, :tag_list
 
   validates_presence_of :url
 
-  validates_uniqueness_of :url, :original_url
+  validates_uniqueness_of :url
+  validates_uniqueness_of :original_url
 
-  before_save :ensure_hosted_on_imgur
+  # before_create :check_for_existing
+
+  before_validation :store_original_url
+  before_create :ensure_hosted_on_imgur
 
   private
-  #http://www.imageshack.us/upload_api.php?key=57CHKLNO23f5772890d33fccf87b99c997caf3bc&url=http://30.media.tumblr.com/tumblr_l5seo7bH9R1qci224o1_250.gif
   
+  #http://www.imageshack.us/upload_api.php?key=57CHKLNO23f5772890d33fccf87b99c997caf3bc&url=http://30.media.tumblr.com/tumblr_l5seo7bH9R1qci224o1_250.gif
+
+  #def check_for_existing
+  #  pp self.url
+  #  existing = Gif.find_by_url(self.url) ? Gif.find_by_url(self.url) : Gif.find_by_original_url(self.original_url)
+  #  pp existing
+  #  self.errors.add_to_base :url, "Link already on the site -- help update its tags or title, its id is #{existing.id}!" if existing
+  #end
+
+  def store_original_url
+    self.original_url = self.url if !self.original_url
+  end
+
   def ensure_hosted_on_imgur
-    self.original_url = self.url
-    
     if !url.include? "imgur"
       host_on_imgur
     end

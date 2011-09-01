@@ -1,19 +1,43 @@
-= form_for @gif do |f|
-  = f.error_messages
-  %p
-    = f.label :name
-    %br
-    = f.text_field :name
-  %p
-    = f.label :url
-    %br
-    = f.text_field :url
-  %p
-    = f.label :tags
-    %br
-    = f.text_field :tags, :value => @gif.tags.join(", ")
-  %p
-    = f.label :nsfw
-    = f.check_box :nsfw
-    
-  %p= f.submit
+- if @gif
+  = form_for @gif do |f|
+    = f.error_messages
+    %p
+      = f.label :name
+      %br
+      = f.text_field :name
+    %p
+      = f.label :url
+      %br
+      = f.text_field :url
+    %p
+      = f.label :tag_list
+      %br
+      = f.text_field :tag_list#, :value => @gif.tags.join(", ")
+    %p
+      = f.label :nsfw
+      = f.check_box :nsfw
+
+    %p= f.submit
+- else
+  = form_tag :action => :update_batch
+  %table
+    %tr
+      %th Get?
+    - @gifs.each_with_index do |gif, i|
+      = fields_for "gifs[#{i}]", gif do |pf|
+        %tr
+          %td= pf.check_box :include, :checked => true
+          %td
+            = link_to_function image_tag(gif.url), "$('gifs_#{i}_include').checked = !$('gifs_#{i}_include').checked;"
+            %br
+            = pf.hidden_field :url
+            = pf.label :name
+            = pf.text_field :name
+            %br
+            = pf.label :tag_list
+            - if params[:import]
+              = pf.text_field :tag_list, :value => params[:import][:tags]
+            - else
+              = pf.text_field :tag_list
+    %tr
+      %td= submit_tag "Update gifs"

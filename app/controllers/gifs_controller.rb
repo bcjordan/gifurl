@@ -78,6 +78,21 @@ class GifsController < ApplicationController
     
   end
 
+  def batch_edit
+    if params[:batch_edit]
+      if params[:batch_edit][:range] && params[:batch_edit][:range] != ''
+        range = params[:batch_edit][:range].to_range
+        @gifs = Gif.where(:id => range)
+      elsif params[:batch_edit][:name]
+        @gifs = Gif.find_all_by_name(params[:batch_edit][:name])
+      elsif params[:batch_edit][:tag_list]
+        @gifs = Gif.tagged_with params[:batch_edit][:tag_list]
+      end
+    else
+      @gifs = []
+    end
+  end
+
   def review
     @gifs = []
     urls = {}
@@ -108,19 +123,17 @@ class GifsController < ApplicationController
   end
 
   def update_batch
-    params[:gifs]
-    #@gifs = session[:gifs]
     @gifs = []
 
     params[:gifs].each do |key, gif|
       if gif['include'] == '1'
         new_gif = Gif.find_or_create_by_url(gif[:url])
         new_gif.update_attributes(gif)
-        new_gif.tag_list = gif[:tags]
+        new_gif.tag_list = gif[:tag_list]
         
         @gifs << new_gif if new_gif.save
       else
-        Gif.find_by_url(gif[:url]).destroy
+        Gif.find_by_url(gif[:url]).destroy if Gif.find_by_url(gif[:url])
       end
     end
 
@@ -129,11 +142,11 @@ class GifsController < ApplicationController
 
   def update
     @gif = Gif.find(params[:id])
-    pp "Tags are" + params[:gif][:tags]
-    @gif.tag_list = params[:gif][:tags]
+    @gif.tag_list = params[:gif][:tag_list]
     if @gif.update_attributes(params[:gif])
       redirect_to @gif, :notice => "Successfully updated gif."
     else
+      ## TODO: save tag list
       render :action => 'edit'
     end
   end
