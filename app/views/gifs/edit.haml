@@ -1,3 +1,6 @@
+- if @gif.url
+  #right= image_tag @gif.url
+
 - title "Edit Gif"
 
 = render 'form'
@@ -5,3 +8,4 @@
 %p
   = link_to "Show", @gif
   = link_to "View All", gifs_path
+

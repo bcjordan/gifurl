@@ -20,9 +20,7 @@
 %p
   %b Tagged with:
   = @gif.tag_list
-  -#- @gif.tags.each do |tag|
-  -#  %span= tag
-
 
 %p
   = link_to "Back to all gifs", gifs_path
+  = link_to "Edit", edit_gif_path
