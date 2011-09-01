@@ -27,7 +27,9 @@ class GifsController < ApplicationController
       offset = offset - 1 # Move from 1 bottom to 0 bottom
 
       matching_gifs = Gif.tagged_with(tags)
+      matching_gifs += Gif.tagged_with(params[:tag].split ' ')
 
+      pp params[:tag].split ' '
       if matching_gifs.size <= offset
         offset = matching_gifs.size - 1
       end
