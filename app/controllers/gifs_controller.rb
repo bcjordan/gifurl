@@ -9,7 +9,7 @@ class GifsController < ApplicationController
   end
 
   def index
-    @tags = Gif.tag_counts
+    @tags = Gif.where(:nsfw => nil).tag_counts
     @gifs = Gif.all if !@gifs || @gifs.empty?
   end
 
