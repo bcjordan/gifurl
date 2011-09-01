@@ -8,7 +8,8 @@
 #tagcloud
   %b Top tags:
   -tag_cloud @tags, %w(css1 css2 css3 css4) do |tag, css_class|
-    %span{:class => css_class}= tag.name
+    - if tag.count > 1
+      %span{:class => css_class}= tag.name
 
 %table
   %tr

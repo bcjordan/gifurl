@@ -62,7 +62,7 @@ class GifsController < ApplicationController
 
   def create
     @gif = Gif.new(params[:gif])
-    @gif.tag_list = params[:gif][:tags]
+    # params[:gif][:tags]
     if @gif.save
       redirect_to @gif, :notice => "Successfully created gif."
     else
@@ -83,10 +83,19 @@ class GifsController < ApplicationController
       if params[:batch_edit][:range] && params[:batch_edit][:range] != ''
         range = params[:batch_edit][:range].to_range
         @gifs = Gif.where(:id => range)
-      elsif params[:batch_edit][:name]
+      elsif params[:batch_edit][:name] &&
+           (params[:batch_edit][:name] != '' || params[:batch_edit][:name] == 'blank')
+        if params[:batch_edit][:name] == 'blank'
+          params[:batch_edit][:name] = ''
+        end
         @gifs = Gif.find_all_by_name(params[:batch_edit][:name])
       elsif params[:batch_edit][:tag_list]
-        @gifs = Gif.tagged_with params[:batch_edit][:tag_list]
+        if params[:batch_edit][:tag_list] == ''
+          @gifs = Gif.tagged_with []
+          pp 'hello'
+        else
+          @gifs = Gif.tagged_with params[:batch_edit][:tag_list]
+        end
       end
     else
       @gifs = []
@@ -142,7 +151,7 @@ class GifsController < ApplicationController
 
   def update
     @gif = Gif.find(params[:id])
-    @gif.tag_list = params[:gif][:tag_list]
+    
     if @gif.update_attributes(params[:gif])
       redirect_to @gif, :notice => "Successfully updated gif."
     else
