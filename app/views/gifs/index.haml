@@ -9,7 +9,7 @@
   %b Top tags:
   -tag_cloud @tags, %w(css1 css2 css3 css4) do |tag, css_class|
     - if tag.count > 1
-      %span{:class => css_class}= tag.name
+      %span{:class => css_class}= link_to tag.name, "tag/#{tag.name}"
 
 %table
   %tr

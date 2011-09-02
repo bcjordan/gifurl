@@ -36,12 +36,13 @@ class GifsController < ApplicationController
       @gif = matching_gifs[offset]
     end
 
-    pp "test" + request.referer
-
-    request.env[:HTTP_REFERER]
     redirect_to @gif.url, :status => 301
     #file = open("#{@gif.url}")
     #send_data file.read, :filename => @gif.id, :type=>'image/gif', :disposition => 'inline'
+  end
+
+  def tag
+    @gifs = Gif.tagged_with params[:tag]
   end
 
   def show
