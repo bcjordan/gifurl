@@ -1,7 +1,7 @@
 
 #gifstrip
   -@gifs.shuffle[0..9].each do |gif|
-    = image_tag gif.url
+    = link_to image_tag(gif.url), gif.url
 
 
 #tagcloud
