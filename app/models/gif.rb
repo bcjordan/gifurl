@@ -3,6 +3,7 @@ require 'net/http'
 
 class Gif < ActiveRecord::Base
   acts_as_taggable
+  is_impressionable
 
   attr_accessible :name, :url, :nsfw, :source, :original_url, :tag_list
 

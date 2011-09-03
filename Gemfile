@@ -6,6 +6,8 @@ gem 'rails', '3.0.7'
 
 gem 'shoulda'
 
+gem 'impressionist'
+
 gem 'haml'
 
 gem 'haml-rails'
@@ -22,6 +24,7 @@ gem 'json'
 gem 'nifty-generators'
 
 gem 'acts-as-taggable-on'
+
 
 # Use unicorn as the web server
 # gem 'unicorn'

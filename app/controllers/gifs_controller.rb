@@ -4,6 +4,8 @@ require 'pp'
 require 'nokogiri'
 
 class GifsController < ApplicationController
+  # impressionist
+
   def front
     @gifs = Gif.all
   end
@@ -11,6 +13,7 @@ class GifsController < ApplicationController
   def index
     @tags = Gif.where(:nsfw => nil).tag_counts
     @gifs = Gif.all if !@gifs || @gifs.empty?
+    @impressions = Impression.where(:impressionable_type => 'Gif', :action_name => 'jump').count
   end
 
   def tag_cloud
@@ -38,6 +41,7 @@ class GifsController < ApplicationController
 
     if @gif
       redirect_to @gif.url, :status => 301
+      impressionist(@gif)
     else
       redirect_to index_path
     end
