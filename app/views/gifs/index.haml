@@ -21,11 +21,13 @@
       %td= link_to gif.name, gif.url
       %td= gif.tags.join(', ')
       %td= 'NSFW' if gif.nsfw
-      %td= link_to "Show", gif
-      %td= link_to "Edit", edit_gif_path(gif)
-      %td= link_to "Destroy", gif, :confirm => 'Are you sure?', :method => :delete
+      -unless ENV['RAILS_ENV'] == 'production'
+        %td= link_to "Show", gif
+        %td= link_to "Edit", edit_gif_path(gif)
+        %td= link_to "Destroy", gif, :confirm => 'Are you sure?', :method => :delete
 
 %p
-  %b= link_to "New Gif", new_gif_path
-  %b= link_to "Import Gifs", "/gifs/import"
-  %b= link_to "Batch Edit", "/gifs/batch_edit"
+  -unless ENV['RAILS_ENV'] == 'production'
+    %b= link_to "New Gif", new_gif_path
+    %b= link_to "Import Gifs", "/gifs/import"
+    %b= link_to "Batch Edit", "/gifs/batch_edit"

@@ -36,7 +36,11 @@ class GifsController < ApplicationController
       @gif = matching_gifs[offset]
     end
 
-    redirect_to @gif.url, :status => 301
+    if @gif
+      redirect_to @gif.url, :status => 301
+    else
+      redirect_to index_path
+    end
     #file = open("#{@gif.url}")
     #send_data file.read, :filename => @gif.id, :type=>'image/gif', :disposition => 'inline'
   end

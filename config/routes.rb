@@ -1,17 +1,20 @@
 AllgifsCom::Application.routes.draw do
 
-#  match ':id.gif' => 'gifs#show'
   match ':tag.gif' => 'gifs#jump'
   match ':tag.:offset.gif' => 'gifs#jump'
   match '/tag/:tag' => 'gifs#tag'
-  match '/http://*url' => 'gifs#new'
 
-  match 'gifs/import' => 'gifs#import'
-  match 'gifs/review' => 'gifs#review'
-  match 'gifs/update_batch' => 'gifs#update_batch'
-  match 'gifs/batch_edit' => 'gifs#batch_edit'
+  unless ENV['RAILS_ENV'] == 'production'
+    match '/http://*url' => 'gifs#new'
+    match 'gifs/import' => 'gifs#import'
+    match 'gifs/review' => 'gifs#review'
+    match 'gifs/update_batch' => 'gifs#update_batch'
+    match 'gifs/batch_edit' => 'gifs#batch_edit'
+    resources :gifs
+  else
+    match 'gifs' => 'gifs#index', :as => :index
+  end
 
-  resources :gifs
   root :to => 'gifs#index'
 
   # The priority is based upon order of creation:
