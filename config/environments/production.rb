@@ -1,6 +1,11 @@
 AllgifsCom::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
+  ## For rails 3.1
+  # Compress both stylesheets and JavaScripts
+  config.assets.js_compressor  = :uglifier
+  config.assets.css_compressor = :scss
+
   # The production environment is meant for finished, "live" apps.
   # Code is not reloaded between requests
   config.cache_classes = true

@@ -1,30 +1,30 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.7'
+gem "rails", "3.1.0"
 
 # gem 'rake', '0.9.2'
 
-gem 'shoulda'
-
-gem 'impressionist'
-
-gem 'haml'
-
-gem 'haml-rails'
-
-gem 'nokogiri'
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-gem 'sqlite3'
-
+## Rails 3.1 asset pipeline
 gem 'json'
+gem 'sass'
+gem 'coffee-script'
+gem 'uglifier'
 
+## Rails 3.1 javascript
+gem 'jquery-rails'
+
+## Rails 3.1 heroku
+
+## Custom items:
+gem 'shoulda'
+gem 'impressionist'
+gem 'haml'
+gem 'haml-rails'
+gem 'nokogiri'
+gem 'sqlite3'
+gem 'json'
 gem 'nifty-generators'
-
 gem 'acts-as-taggable-on'
-
 
 # Use unicorn as the web server
 # gem 'unicorn'
