@@ -4,6 +4,7 @@ AllgifsCom::Application.routes.draw do
   match ':tag.gif' => 'gifs#jump'
   match ':tag.:offset.gif' => 'gifs#jump'
   match '/tag/:tag' => 'gifs#tag'
+  match '/http://*url' => 'gifs#new'
 
   match 'gifs/import' => 'gifs#import'
   match 'gifs/review' => 'gifs#review'
