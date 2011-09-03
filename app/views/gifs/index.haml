@@ -1,3 +1,5 @@
+- is_production = ENV['RAILS_ENV'] == 'production'
+
 %h2
   = "Shmow-zow! More than #{@impressions} jumps served!" if @impressions
 
@@ -15,20 +17,20 @@
   %tr
     %th Name
     %th Tags
-    %th NSFW
-    %th Tools 
+    %th
+    %th= "Tools" unless is_production
   -for gif in @gifs
     %tr
       %td= link_to gif.name, gif.url
       %td= gif.tags.join(', ')
       %td= 'NSFW' if gif.nsfw
-      -unless ENV['RAILS_ENV'] == 'production'
+      -unless is_production
         %td= link_to "Show", gif
         %td= link_to "Edit", edit_gif_path(gif)
         %td= link_to "Destroy", gif, :confirm => 'Are you sure?', :method => :delete
 
 %p
-  -unless ENV['RAILS_ENV'] == 'production'
+  -unless is_production
     %b= link_to "New Gif", new_gif_path
     %b= link_to "Import Gifs", "/gifs/import"
     %b= link_to "Batch Edit", "/gifs/batch_edit"
