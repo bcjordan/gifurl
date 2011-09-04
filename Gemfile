@@ -13,6 +13,11 @@ gem 'uglifier'
 ## Rails 3.1 javascript
 gem 'jquery-rails'
 
+## Heroku
+group :production do
+  gem 'therubyracer-heroku', '0.8.1.pre3'
+end
+
 ## Custom items:
 gem 'shoulda'
 gem 'impressionist'
