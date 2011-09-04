@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+%html
+  %head
+    %title= content_for?(:title) ? yield(:title) : "GifURL"
+    = stylesheet_link_tag    "application"
+    = javascript_include_tag "application"
+    = csrf_meta_tag
+    = yield(:head)
+  %body
+    #container
+      - flash.each do |name, msg|
+        = content_tag :div, msg, :id => "flash_#{name}"
+      = content_tag :h1, link_to("GifURL #{yield(:title)}", '/')
+      = yield

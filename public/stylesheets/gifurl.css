@@ -1,0 +1,49 @@
+/* line 1, ../../app/assets/stylesheets/gifurl.scss */
+.css1 {
+  font-size: 1.0em;
+}
+
+/* line 2, ../../app/assets/stylesheets/gifurl.scss */
+.css2 {
+  font-size: 1.2em;
+}
+
+/* line 3, ../../app/assets/stylesheets/gifurl.scss */
+.css3 {
+  font-size: 1.4em;
+}
+
+/* line 4, ../../app/assets/stylesheets/gifurl.scss */
+.css4 {
+  font-size: 1.6em;
+}
+
+/* line 6, ../../app/assets/stylesheets/gifurl.scss */
+#right {
+  float: right;
+}
+
+/* line 9, ../../app/assets/stylesheets/gifurl.scss */
+#gifstrip img {
+  width: 100px;
+  height: 100px;
+}
+
+/* line 11, ../../app/assets/stylesheets/gifurl.scss */
+a {
+  text-decoration: none;
+  color: #3b5998;
+}
+
+/* line 12, ../../app/assets/stylesheets/gifurl.scss */
+a:hover {
+  text-decoration: underline;
+}
+
+/* Facebook body { font-family: "lucida grande", tahoma, verdana, arial, sans-serif }*/
+/* StackOverflow body { font-family: Arial,Liberation Sans,DejaVu Sans,sans-serif }*/
+/* Reddit */
+/* line 17, ../../app/assets/stylesheets/gifurl.scss */
+body {
+  font-family: normal x-small verdana, arial, helvetica, sans-serif;
+}

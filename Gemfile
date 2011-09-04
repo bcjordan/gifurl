@@ -13,8 +13,6 @@ gem 'uglifier'
 ## Rails 3.1 javascript
 gem 'jquery-rails'
 
-## Rails 3.1 heroku
-
 ## Custom items:
 gem 'shoulda'
 gem 'impressionist'
