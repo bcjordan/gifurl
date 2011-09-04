@@ -3,9 +3,9 @@ AllgifsCom::Application.routes.draw do
   match ':tag.gif' => 'gifs#jump'
   match ':tag.:offset.gif' => 'gifs#jump'
   match '/tag/:tag' => 'gifs#tag'
-  match '/http://*url' => 'gifs#new'
 
   unless ENV['RAILS_ENV'] == 'production'
+    match '/http://*url' => 'gifs#new'
     match 'gifs/import' => 'gifs#import'
     match 'gifs/review' => 'gifs#review'
     match 'gifs/update_batch' => 'gifs#update_batch'
