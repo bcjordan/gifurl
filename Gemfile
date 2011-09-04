@@ -2,14 +2,13 @@ source 'http://rubygems.org'
 
 gem "rails", "3.1.0"
 
-# gem 'rake', '0.9.2'
+gem 'thin'
 
-## Rails 3.1 asset pipeline
 gem 'json'
 gem 'sass'
-
 gem 'jquery-rails'
 
+## Rails 3.1 asset pipeline
 # Asset template engines
 group :assets do
   gem 'sass-rails', "~> 3.1.0.rc"
@@ -20,7 +19,6 @@ end
 ## Heroku
 group :production do
   gem 'pg'
-#  gem 'therubyracer-heroku', '0.8.1.pre3'
 end
 
 group :development do
