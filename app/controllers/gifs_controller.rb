@@ -74,7 +74,6 @@ class GifsController < ApplicationController
 
   def create
     @gif = Gif.new(params[:gif])
-    # params[:gif][:tags]
     if @gif.save
       redirect_to @gif, :notice => "Successfully created gif."
     else
@@ -87,7 +86,6 @@ class GifsController < ApplicationController
   end
 
   def import
-    
   end
 
   def batch_edit

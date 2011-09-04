@@ -7,17 +7,34 @@ gem "rails", "3.1.0"
 ## Rails 3.1 asset pipeline
 gem 'json'
 gem 'sass'
-#gem 'coffee-script'
-#gem 'uglifier'
+
+gem 'jquery-rails'
+
+# Asset template engines
+group :assets do
+  gem 'sass-rails', "~> 3.1.0.rc"
+  gem 'coffee-script'
+  gem 'uglifier'
+end
+
+## Heroku
+group :production do
+  gem 'pg'
+#  gem 'therubyracer-heroku', '0.8.1.pre3'
+end
+
+group :development do
+  gem 'sqlite3'
+end
+
+group :test do
+  # Pretty printed test output
+  gem 'turn', :require => false
+end
 
 ## Rails 3.1 javascript
 gem 'jquery-rails'
 
-## Heroku
-group :production do
-  gem 'therubyracer-heroku', '0.8.1.pre3'
-  gem 'pg'
-end
 
 ## Custom items:
 gem 'shoulda'
@@ -25,7 +42,6 @@ gem 'impressionist'
 gem 'haml'
 gem 'haml-rails'
 gem 'nokogiri'
-gem 'sqlite3'
 gem 'json'
 gem 'nifty-generators'
 gem 'acts-as-taggable-on'

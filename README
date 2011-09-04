@@ -1,0 +1,5 @@
+GifURL is a gif URL forwarding service. It is meant to be used to quickly link to appropriate gif images.
+
+E.g.,
+
+http://gifurl.com/science.gif searches for a gif tagged with 'science'. 
