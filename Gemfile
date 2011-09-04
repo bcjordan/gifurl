@@ -7,17 +7,17 @@ gem "rails", "3.1.0"
 ## Rails 3.1 asset pipeline
 gem 'json'
 gem 'sass'
-gem 'coffee-script'
-gem 'uglifier'
+#gem 'coffee-script'
+#gem 'uglifier'
 
 ## Rails 3.1 javascript
 gem 'jquery-rails'
 
 ## Heroku
-group :production do
-  gem 'therubyracer-heroku', '0.8.1.pre3'
-  gem 'pg'
-end
+#group :production do
+#  gem 'therubyracer-heroku', '0.8.1.pre3'
+#  gem 'pg'
+#end
 
 ## Custom items:
 gem 'shoulda'

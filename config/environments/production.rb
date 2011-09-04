@@ -3,7 +3,7 @@ AllgifsCom::Application.configure do
 
   ## For rails 3.1
   # Compress both stylesheets and JavaScripts
-  config.assets.js_compressor  = :uglifier
+  #config.assets.js_compressor  = :uglifier
   config.assets.css_compressor = :scss
 
   # The production environment is meant for finished, "live" apps.
