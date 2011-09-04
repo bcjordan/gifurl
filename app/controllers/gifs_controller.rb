@@ -121,7 +121,8 @@ class GifsController < ApplicationController
       urls = {}
       ## TODO: add range handling and multi-URL parsing
       doc = Nokogiri::HTML(open(params[:import][:url]))
-      doc.css('a').each do |image|
+
+      (doc.css('img') + doc.css('a')).each do |image|
         if image['src'] && image['src'].include?('.gif') && !image['src'].include?('pixel')
           urls[image['src']] = true
         elsif image['href'] && image['href'] && image['href'].include?('.gif')
@@ -129,6 +130,7 @@ class GifsController < ApplicationController
         end
       end
 
+      pp urls
       urls.each do |url, value|
         @gifs << Gif.create(:url => url, :source => params[:import][:url])
       end

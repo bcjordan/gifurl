@@ -13,13 +13,13 @@
 ActiveRecord::Schema.define(:version => 20110903163658) do
 
   create_table "gifs", :force => true do |t|
-    t.string    "name"
-    t.string    "url"
-    t.boolean   "nsfw"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.string    "source"
-    t.string    "original_url"
+    t.string   "name"
+    t.string   "url"
+    t.boolean  "nsfw"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "source"
+    t.string   "original_url"
   end
 
   create_table "impressions", :force => true do |t|
@@ -47,13 +47,13 @@ ActiveRecord::Schema.define(:version => 20110903163658) do
   add_index "impressions", ["user_id"], :name => "index_impressions_on_user_id"
 
   create_table "taggings", :force => true do |t|
-    t.integer   "tag_id"
-    t.integer   "taggable_id"
-    t.string    "taggable_type"
-    t.integer   "tagger_id"
-    t.string    "tagger_type"
-    t.string    "context"
-    t.timestamp "created_at"
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context"
+    t.datetime "created_at"
   end
 
   add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"

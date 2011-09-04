@@ -1,5 +1,22 @@
 - is_production = ENV['RAILS_ENV'] == 'production'
 
+
+%h1
+  =link_to "GifURL", '/'
+  \--
+  = ["it's pretty good", "not bad", "it could be worse",
+     "#{image_tag 'http://i.imgur.com/Uke4W.jpg', :width => '50px', :height => '50px'} y u search bar", "write your congressman"].shuffle.first.html_safe
+
+%h2 Usage:
+
+#preview I'm spongebob
+
+%h3= gifurl :tags => ['popcorn']
+%h3= gifurl :tags => ['popcorn'], :offset => 3
+%h3= gifurl :tags => ['popcorn', 'spongebob']
+
+
+
 %h2
   = "Shmow-zow! More than #{@impressions} jumps served!" if @impressions
 
@@ -17,13 +34,11 @@
   %tr
     %th Name
     %th Tags
-    %th
     %th= "Tools" unless is_production
   -for gif in @gifs
     %tr
-      %td= link_to gif.name, gif.url
+      %td= link_to gif.name, gif
       %td= gif.tags.join(', ')
-      %td= 'NSFW' if gif.nsfw
       -unless is_production
         %td= link_to "Show", gif
         %td= link_to "Edit", edit_gif_path(gif)

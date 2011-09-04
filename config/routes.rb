@@ -13,6 +13,7 @@ AllgifsCom::Application.routes.draw do
     resources :gifs
   else
     match 'gifs' => 'gifs#index', :as => :index
+    match 'gif' => 'gifs#show'
   end
 
   root :to => 'gifs#index'

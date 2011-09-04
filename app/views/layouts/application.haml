@@ -10,5 +10,5 @@
     #container
       - flash.each do |name, msg|
         = content_tag :div, msg, :id => "flash_#{name}"
-      = content_tag :h1, link_to("GifURL #{yield(:title)}", '/')
+      -#= content_tag :h1, link_to("GifURL #{yield(:title)}", '/')
       = yield
