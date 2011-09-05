@@ -4,7 +4,7 @@ require 'pp'
 require 'nokogiri'
 
 class GifsController < ApplicationController
-  # impressionist
+  impressionist :actions=>[:show,:index]
 
   def front
     @gifs = Gif.all
