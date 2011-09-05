@@ -37,7 +37,7 @@
     %th= "Tools" unless is_production
   -for gif in @gifs
     %tr
-      %td= link_to gif.name, gif
+      %td= link_to gif.name, gif.url
       %td= gif.tags.join(', ')
       -unless is_production
         %td= link_to "Show", gif
