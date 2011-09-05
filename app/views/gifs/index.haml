@@ -4,8 +4,9 @@
 %h1
   =link_to "GifURL", '/'
   \--
-  = ["it's pretty good", "not bad", "it could be worse",
-     "#{image_tag 'http://i.imgur.com/Uke4W.jpg', :width => '50px', :height => '50px'} y u search bar", "write your congressman"].shuffle.first.html_safe
+  = ["fight with tools", "your browser hates this page", "it's pretty good", "not bad", "it could be worse",
+     "#{image_tag 'http://i.imgur.com/Uke4W.jpg', :width => '50px', :height => '50px'} &nbsp;y u no use url?",
+     "write your congressman"].shuffle.first.html_safe
 
 %h2 Usage:
 
@@ -18,11 +19,11 @@
 
 
 %h2
-  = "Shmow-zow! More than #{@impressions} jumps served!" if @impressions
+  = "#{["Shmow-zow! More than", "Cool, something like", "Holy simoleons,", "Probably"].shuffle.first} #{@impressions} jumps served!" if @impressions
 
 #gifstrip
   -@gifs.shuffle[0..9].each do |gif|
-    = link_to image_tag(gif.url), gif.url
+    = link_to image_tag(gif.url, :alt => gif.name, :title => gif.name), gif.url
 
 #tagcloud
   %b Top tags:
