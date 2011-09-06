@@ -5,16 +5,16 @@ AllgifsCom::Application.routes.draw do
   match '/tag/:tag' => 'gifs#tag'
 
   unless ENV['RAILS_ENV'] == 'production'
-    match '/http://*url' => 'gifs#new'
-    match 'gifs/import' => 'gifs#import'
-    match 'gifs/review' => 'gifs#review'
     match 'gifs/update_batch' => 'gifs#update_batch'
     match 'gifs/batch_edit' => 'gifs#batch_edit'
     resources :gifs
   else
-    match 'gifs' => 'gifs#index', :as => :index
-    match 'gif' => 'gifs#show'
+    resources :gifs, :except => [:edit, :update]
   end
+
+  match '/http://*url' => 'gifs#new'
+  match 'gifs/import' => 'gifs#import'
+  match 'gifs/review' => 'gifs#review'
 
   root :to => 'gifs#index'
 
