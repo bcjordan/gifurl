@@ -3,6 +3,7 @@ AllgifsCom::Application.routes.draw do
   match ':tag.gif' => 'gifs#jump'
   match ':tag.:offset.gif' => 'gifs#jump'
   match '/tag/:tag' => 'gifs#tag'
+  match '/:tag' => 'gifs#tag'
 
   unless ENV['RAILS_ENV'] == 'production'
     match 'gifs/update_batch' => 'gifs#update_batch'
