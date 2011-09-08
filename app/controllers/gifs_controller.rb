@@ -68,7 +68,7 @@ class GifsController < ApplicationController
 
   def new
     @gif = Gif.new
-    @gif.url = "http://#{params[:url]}" if params[:url]
+    @gif.url = "http://#{params[:url]}.gif" if params[:url]
   end
 
   def create

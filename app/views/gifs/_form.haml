@@ -1,4 +1,5 @@
 - if @gif
+  #right= image_tag @gif.url if @gif.url
   = form_for @gif do |f|
     = f.error_messages
     %p
