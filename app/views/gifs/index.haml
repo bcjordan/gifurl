@@ -39,7 +39,9 @@
     %th= "Tools" if !is_production
     -for gif in @gifs
       %tr
-        %td= link_to gif.name, gif
+        %td
+          = link_to image_tag('world.png'), gif.url
+          = link_to gif.name, gif
         %td= gif.tags.sort{ |a,b| a.name.downcase <=> b.name.downcase }.join(', ')
 
         -## Show Gif editing tools
