@@ -25,25 +25,28 @@
   -@gifs.shuffle[0..9].each do |gif|
     = link_to image_tag(gif.url, :alt => gif.name, :title => gif.name), gif.url
 
+%h2 Top tags:
 #tagcloud
-  %b Top tags:
   -tag_cloud @tags, %w(css1 css2 css3 css4) do |tag, css_class|
     - if tag.count > 1
       %span{:class => css_class}= link_to tag.name, "tag/#{tag.name}"
 
--unless is_production
-  %table
-    %tr
-      %th Name
-      %th Tags
-      %th= "Tools" unless is_production
+%h2 The gifs:
+%table
+  %tr
+    %th Name
+    %th Tags
+    %th= "Tools" if !is_production
     -for gif in @gifs
       %tr
-        %td= link_to gif.name, gif.url
-        %td= gif.tags.join(', ')
-        %td= link_to "Show", gif
-        %td= link_to "Edit", edit_gif_path(gif)
-        %td= link_to "Destroy", gif, :confirm => 'Are you sure?', :method => :delete
+        %td= link_to gif.name, gif
+        %td= gif.tags.sort{ |a,b| a.name.downcase <=> b.name.downcase }.join(', ')
+
+        -## Show Gif editing tools
+        -if !is_production && params[:edit]
+          %td= link_to "Show", gif
+          %td= link_to "Edit", edit_gif_path(gif)
+          %td= link_to "Destroy", gif, :confirm => 'Are you sure?', :method => :delete
 
 %p
   -unless is_production
