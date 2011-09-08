@@ -21,6 +21,7 @@
   %b Tagged with:
   = @gif.tag_list
 
-%p
-  = link_to "Back to all gifs", gifs_path
-  = link_to "Edit", edit_gif_path
+-unless ENV['RAILS_ENV'] == 'production'
+  %p
+    = link_to "Back to all gifs", gifs_path
+    = link_to "Edit", edit_gif_path
