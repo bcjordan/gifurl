@@ -1,5 +1,11 @@
 AllgifsCom::Application.routes.draw do
 
+  match '/http://*url' => 'gifs#new'
+  match 'gifs/import' => 'gifs#import'
+  match 'gifs/review' => 'gifs#review'
+  match 'gifs/update_batch' => 'gifs#update_batch'
+
+
   match ':tag.gif' => 'gifs#jump'
   match ':tag.:offset.gif' => 'gifs#jump'
   match '/tag/:tag' => 'gifs#tag'
@@ -12,10 +18,6 @@ AllgifsCom::Application.routes.draw do
     resources :gifs
   end
 
-  match '/http://*url' => 'gifs#new'
-  match 'gifs/import' => 'gifs#import'
-  match 'gifs/review' => 'gifs#review'
-  match 'gifs/update_batch' => 'gifs#update_batch'
 
   root :to => 'gifs#index'
 
