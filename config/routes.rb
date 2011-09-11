@@ -6,11 +6,6 @@ AllgifsCom::Application.routes.draw do
   match 'gifs/update_batch' => 'gifs#update_batch'
 
 
-  match ':tag.gif' => 'gifs#jump'
-  match ':tag.:offset.gif' => 'gifs#jump'
-  match '/tag/:tag' => 'gifs#tag'
-  match '/:tag' => 'gifs#tag'
-
   if ENV['RAILS_ENV'] == 'production'
     resources :gifs, :except => [:edit]
   else
@@ -18,6 +13,10 @@ AllgifsCom::Application.routes.draw do
     resources :gifs
   end
 
+  match ':tag.gif' => 'gifs#jump'
+  match ':tag.:offset.gif' => 'gifs#jump'
+  match '/tag/:tag' => 'gifs#tag'
+  match '/:tag' => 'gifs#tag'
 
   root :to => 'gifs#index'
 
