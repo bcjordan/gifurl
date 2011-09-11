@@ -1,5 +1,7 @@
 require 'json'
 require 'net/http'
+require 'open-uri'
+require 'nokogiri'
 
 class Gif < ActiveRecord::Base
   acts_as_taggable
@@ -15,7 +17,7 @@ class Gif < ActiveRecord::Base
   # before_create :check_for_existing
 
   before_validation :store_original_url
-  before_create :ensure_hosted_on_imgur
+  before_create :ensure_hosted_on_ehost
 
   private
   
@@ -30,6 +32,12 @@ class Gif < ActiveRecord::Base
 
   def store_original_url
     self.original_url = self.url if !self.original_url
+  end
+
+  def ensure_hosted_on_ehost
+    if !url.include? "eho.st"
+      host_on_ehost
+    end
   end
 
   def ensure_hosted_on_imgur
@@ -57,4 +65,13 @@ class Gif < ActiveRecord::Base
       puts "ERROR: imgur update failed"
     end
   end
+end
+
+def host_on_ehost
+  response = open self.url
+  pp response
+  doc = Nokogiri::HTML response
+
+  pp doc
+
 end
