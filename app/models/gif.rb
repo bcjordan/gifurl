@@ -17,7 +17,7 @@ class Gif < ActiveRecord::Base
   # before_create :check_for_existing
 
   before_validation :store_original_url
-  before_create :ensure_hosted_on_ehost
+  before_save :ensure_hosted_on_ehost
 
   private
   
@@ -69,7 +69,7 @@ end
 
 def host_on_ehost
   response = open self.url
-  pp response
+  pp response.body
   doc = Nokogiri::HTML response
 
   pp doc
