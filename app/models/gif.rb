@@ -69,7 +69,7 @@ end
 
 def host_on_ehost
   response = open self.url
-  pp response.body
+  pp response.response
   doc = Nokogiri::HTML response
 
   pp doc
