@@ -14,15 +14,13 @@ class Gif < ActiveRecord::Base
   validates_uniqueness_of :url
   validates_uniqueness_of :original_url
 
-  # before_create :check_for_existing
 
   before_validation :store_original_url
-  before_save :ensure_hosted_on_ehost
+  before_save :ensure_hosted
 
   private
-  
-  #http://www.imageshack.us/upload_api.php?key=57CHKLNO23f5772890d33fccf87b99c997caf3bc&url=http://30.media.tumblr.com/tumblr_l5seo7bH9R1qci224o1_250.gif
 
+  # before_create :check_for_existing
   #def check_for_existing
   #  pp self.url
   #  existing = Gif.find_by_url(self.url) ? Gif.find_by_url(self.url) : Gif.find_by_original_url(self.original_url)
@@ -32,6 +30,22 @@ class Gif < ActiveRecord::Base
 
   def store_original_url
     self.original_url = self.url if !self.original_url
+  end
+
+  def ensure_hosted
+    if !url.include? "eho.st" and !url.include? "imgur"
+      begin
+        host_on_imgur
+      rescue Exception => e
+        puts "ERROR: imgur hosting failed. Falling back to ehost. #{e.message}"
+        begin
+          host_on_ehost
+        rescue Exception => e2
+          ## TODO: mark gif as poor quality (e.g., don't show on front page)
+          puts "ERROR: ehost hosting failed. Keeping original host. #{e.message}"
+        end
+      end
+    end
   end
 
   def ensure_hosted_on_ehost
@@ -47,30 +61,29 @@ class Gif < ActiveRecord::Base
   end
 
   def host_on_imgur
-    begin
-      res = Net::HTTP.post_form(URI.parse('http://api.imgur.com/2/upload.json'),
-                                {'key'         => '41c9fb1cc18d7e6ea82e4d46eaa9ca0c',
-                                 'image'       => self.url,
-                                 'content-type'=>'image/gif'})
+    res = Net::HTTP.post_form(URI.parse('http://api.imgur.com/2/upload.json'),
+                              {'key'         => '41c9fb1cc18d7e6ea82e4d46eaa9ca0c',
+                               'image'       => self.url,
+                               'content-type'=>'image/gif'})
 
-      # To handle uploads:
-      # 'image' => Base64.encode64(open(url).read),
-      puts res.body
+    # To handle uploads:
+    # 'image' => Base64.encode64(open(url).read),
+    puts res.body
 
-      self.url = JSON.parse(res.body)['upload']['links']['original']
+    self.url = JSON.parse(res.body)['upload']['links']['original']
 
-      puts self.url
-      puts JSON.parse(res.body)['upload']['image']['hash']
-    rescue
-      puts "ERROR: imgur update failed"
+    puts self.url
+    puts JSON.parse(res.body)['upload']['image']['hash']
+  end
+
+  def host_on_ehost
+    get_url     = "http://eho.st/#{self.url}"
+    parser      = Nokogiri::HTML open get_url
+    new_gif_url = parser.css('input')[2].attribute('value').value
+
+    if new_gif_url.include? '.gif'
+      self.original_url = self.url
+      self.url          = new_gif_url
     end
   end
-end
-
-def host_on_ehost
-  response = open self.url
-  doc = Nokogiri::HTML response
-
-  pp doc.html 'input'
-
 end
