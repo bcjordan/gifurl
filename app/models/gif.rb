@@ -78,7 +78,7 @@ class Gif < ActiveRecord::Base
 
   def host_on_ehost
     get_url     = "http://eho.st/#{self.url}"
-    parser      = Nokogiri::HTML open get_url
+    parser      = Nokogiri::HTML(open(get_url).read, nil, 'UTF-8')
     new_gif_url = parser.css('input')[2].attribute('value').value
 
     if new_gif_url.include? '.gif'
